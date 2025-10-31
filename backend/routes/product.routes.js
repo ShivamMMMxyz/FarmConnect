@@ -9,7 +9,7 @@ const { authMiddleware, isFarmer } = require('../middleware/auth');
 router.get('/', async (req, res) => {
   try {
     const { category, search } = req.query;
-    let query = { isAvailable: true };
+    let query = { inStock: true };
 
     if (category && category !== 'all') {
       query.category = category;
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
     res.json({
       success: true,
       count: products.length,
-      products
+      data: products
     });
   } catch (error) {
     res.status(500).json({ 
@@ -48,7 +48,7 @@ router.get('/farmer', authMiddleware, isFarmer, async (req, res) => {
     res.json({
       success: true,
       count: products.length,
-      products
+      data: products
     });
   } catch (error) {
     res.status(500).json({ 
@@ -64,7 +64,7 @@ router.get('/farmer', authMiddleware, isFarmer, async (req, res) => {
 // @access  Private (Farmer)
 router.post('/', authMiddleware, isFarmer, async (req, res) => {
   try {
-    const { name, category, description, price, unit, quantity, images } = req.body;
+    const { name, category, description, price, unit, inStock, image } = req.body;
 
     const product = new Product({
       name,
@@ -72,8 +72,8 @@ router.post('/', authMiddleware, isFarmer, async (req, res) => {
       description,
       price,
       unit,
-      quantity,
-      images: images || [],
+      inStock: inStock !== undefined ? inStock : true,
+      image,
       farmer: req.user._id,
       farmerName: req.user.name,
       farmLocation: req.user.farmLocation
@@ -84,9 +84,10 @@ router.post('/', authMiddleware, isFarmer, async (req, res) => {
     res.status(201).json({
       success: true,
       message: 'Product added successfully',
-      product
+      data: product
     });
   } catch (error) {
+    console.error('Error adding product:', error);
     res.status(500).json({ 
       success: false, 
       message: 'Error adding product',

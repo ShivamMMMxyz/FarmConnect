@@ -8,11 +8,11 @@ const { authMiddleware, isFarmer } = require('../middleware/auth');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const { type, search } = req.query;
-    let query = { isAvailable: true };
+    const { category, search } = req.query;
+    let query = { available: true };
 
-    if (type && type !== 'all') {
-      query.type = type;
+    if (category && category !== 'all') {
+      query.category = category;
     }
 
     if (search) {
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
     res.json({
       success: true,
       count: tools.length,
-      tools
+      data: tools
     });
   } catch (error) {
     res.status(500).json({ 
@@ -48,7 +48,7 @@ router.get('/farmer', authMiddleware, isFarmer, async (req, res) => {
     res.json({
       success: true,
       count: tools.length,
-      tools
+      data: tools
     });
   } catch (error) {
     res.status(500).json({ 
@@ -64,16 +64,15 @@ router.get('/farmer', authMiddleware, isFarmer, async (req, res) => {
 // @access  Private (Farmer)
 router.post('/', authMiddleware, isFarmer, async (req, res) => {
   try {
-    const { name, type, description, rentalPrice, condition, images, specifications } = req.body;
+    const { name, category, description, rentalPrice, available, image } = req.body;
 
     const tool = new Tool({
       name,
-      type,
+      category,
       description,
       rentalPrice,
-      condition,
-      images: images || [],
-      specifications,
+      available: available !== undefined ? available : true,
+      image,
       farmer: req.user._id,
       farmerName: req.user.name,
       location: req.user.farmLocation
@@ -84,9 +83,10 @@ router.post('/', authMiddleware, isFarmer, async (req, res) => {
     res.status(201).json({
       success: true,
       message: 'Tool added successfully',
-      tool
+      data: tool
     });
   } catch (error) {
+    console.error('Error adding tool:', error);
     res.status(500).json({ 
       success: false, 
       message: 'Error adding tool',

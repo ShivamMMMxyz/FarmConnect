@@ -12,8 +12,7 @@ const productSchema = new mongoose.Schema({
     enum: ['fruits', 'vegetables', 'grains', 'dairy', 'other']
   },
   description: {
-    type: String,
-    required: [true, 'Description is required']
+    type: String
   },
   price: {
     type: Number,
@@ -23,16 +22,15 @@ const productSchema = new mongoose.Schema({
   unit: {
     type: String,
     required: true,
-    enum: ['kg', 'gram', 'liter', 'piece', 'dozen']
+    enum: ['kg', 'gram', 'liter', 'piece', 'dozen', 'quintal']
   },
-  quantity: {
-    type: Number,
-    required: [true, 'Quantity is required'],
-    min: 0
+  inStock: {
+    type: Boolean,
+    default: true
   },
-  images: [{
+  image: {
     type: String
-  }],
+  },
   farmer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',

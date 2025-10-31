@@ -6,28 +6,26 @@ const toolSchema = new mongoose.Schema({
     required: [true, 'Tool name is required'],
     trim: true
   },
-  type: {
+  category: {
     type: String,
-    required: [true, 'Tool type is required'],
-    enum: ['tractor', 'plough', 'spray_machine', 'thresher', 'harvester', 'other']
+    required: [true, 'Tool category is required'],
+    enum: ['harvesting', 'planting', 'irrigation', 'processing', 'transport', 'other']
   },
   description: {
-    type: String,
-    required: [true, 'Description is required']
+    type: String
   },
   rentalPrice: {
-    hourly: Number,
-    daily: Number,
-    weekly: Number
+    perDay: Number,
+    perWeek: Number,
+    perMonth: Number
   },
-  condition: {
-    type: String,
-    enum: ['excellent', 'good', 'fair'],
-    default: 'good'
+  available: {
+    type: Boolean,
+    default: true
   },
-  images: [{
+  image: {
     type: String
-  }],
+  },
   farmer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
