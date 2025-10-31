@@ -34,3 +34,7 @@ export const logout = () => {
   removeToken();
   removeUserData();
 };
+
+// Aliases for compatibility
+export const clearToken = removeToken;
+export const clearUserData = removeUserData;

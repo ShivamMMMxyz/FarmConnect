@@ -4,22 +4,26 @@ import { getUserData } from './utils/storage';
 
 // Auth Pages
 import Welcome from './pages/Welcome';
+// import Login from './pages/Login';
 import Login from './pages/Login';
 import Register from './pages/Register';
 
 // Farmer Pages
-import FarmerDashboard from './pages/farmer/FarmerDashboard';
-import AddProduct from './pages/farmer/AddProduct';
-import MyProducts from './pages/farmer/MyProducts';
-import AddTool from './pages/farmer/AddTool';
-import MyTools from './pages/farmer/MyTools';
+// import FarmerDashboard from './pages/farmer/FarmerDashboard';
+import FarmerDashboard from './pages/FarmerDashboard';
+// import AddProduct from './pages/farmer/AddProduct';
+import AddProduct from './pages/AddProduct';
+
+import MyProducts from './pages/MyProducts';
+import AddTool from './pages/AddTool';
+import MyTools from './pages/MyTools';
 
 // Customer Pages
-import CustomerDashboard from './pages/customer/CustomerDashboard';
-import BrowseProducts from './pages/customer/BrowseProducts';
-import BrowseTools from './pages/customer/BrowseTools';
-import Cart from './pages/customer/Cart';
-import Orders from './pages/customer/Orders';
+import CustomerDashboard from './pages/CustomerDashboard';
+import BrowseProducts from './pages//BrowseProducts';
+import BrowseTools from './pages/BrowseTools';
+import Cart from './pages/Cart';
+import Orders from './pages/Orders';
 
 import './App.css';
 
