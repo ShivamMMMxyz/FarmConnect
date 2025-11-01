@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import WeatherWidget from '../../components/WeatherWidget';
 import './FarmerDashboard.css';
 
 const FarmerDashboard = () => {
@@ -18,6 +19,9 @@ const FarmerDashboard = () => {
             </div>
           )}
         </div>
+
+        {/* Weather Widget */}
+        <WeatherWidget location={user?.farmLocation} />
 
         <div className="dashboard-grid">
           <Link to="/farmer/products" className="dashboard-card">

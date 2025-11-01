@@ -24,6 +24,11 @@ const productSchema = new mongoose.Schema({
     required: true,
     enum: ['kg', 'gram', 'liter', 'piece', 'dozen', 'quintal']
   },
+  quantity: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
   inStock: {
     type: Boolean,
     default: true

@@ -3,12 +3,23 @@
 }
 
 /* Hero Section */
-.hero {
+/* .hero {
   background: linear-gradient(135deg, #2d5016 0%, #4caf50 100%);
   color: white;
   padding: 6rem 0;
   text-align: center;
+} */
+
+.hero {
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),  /* overlay for text readability */
+    url('../assets/farm-bg.png') center/cover no-repeat;  /* your image */
+  color: white;
+  padding: 6rem 0;
+  text-align: center;
+  background-attachment: fixed; /* optional: adds parallax effect */
 }
+
 
 .hero-content h1 {
   font-size: 3rem;
@@ -29,9 +40,19 @@
   flex-wrap: wrap;
 }
 
+
+
+
 .btn-large {
   padding: 1rem 2.5rem;
   font-size: 1.1rem;
+}
+
+/* Smaller variant used on the Home hero for Browse Products */
+.btn-small {
+  padding: 0.55rem 1.1rem;
+  font-size: 0.95rem;
+  border-radius: 8px;
 }
 
 /* Features Section */

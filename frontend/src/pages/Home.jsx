@@ -13,10 +13,10 @@ const Home = () => {
               Connecting farmers directly with customers for fresh, quality produce
             </p>
             <div className="hero-buttons">
-              <Link to="/shop" className="btn btn-primary btn-large">
+              <Link to="/shop" className="btn btn-primary btn-small">
                 Browse Products
               </Link>
-              <Link to="/register" className="btn btn-secondary btn-large">
+              <Link to="/register" className="btn btn-secondary btn-small">
                 Join as Farmer
               </Link>
             </div>

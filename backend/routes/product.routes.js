@@ -9,7 +9,8 @@ const { authMiddleware, isFarmer } = require('../middleware/auth');
 router.get('/', async (req, res) => {
   try {
     const { category, search } = req.query;
-    let query = { inStock: true };
+  // Show only products that are marked inStock and have quantity > 0 for public listing
+  let query = { inStock: true, quantity: { $gt: 0 } };
 
     if (category && category !== 'all') {
       query.category = category;
@@ -45,10 +46,17 @@ router.get('/farmer', authMiddleware, isFarmer, async (req, res) => {
     const products = await Product.find({ farmer: req.user._id })
       .sort({ createdAt: -1 });
 
+    // Ensure returned objects always have a numeric `quantity` property (legacy documents may lack it)
+    const normalized = products.map(p => {
+      const obj = p.toObject();
+      if (obj.quantity === undefined || obj.quantity === null) obj.quantity = 0;
+      return obj;
+    });
+
     res.json({
       success: true,
-      count: products.length,
-      data: products
+      count: normalized.length,
+      data: normalized
     });
   } catch (error) {
     res.status(500).json({ 
@@ -64,7 +72,7 @@ router.get('/farmer', authMiddleware, isFarmer, async (req, res) => {
 // @access  Private (Farmer)
 router.post('/', authMiddleware, isFarmer, async (req, res) => {
   try {
-    const { name, category, description, price, unit, inStock, image } = req.body;
+    const { name, category, description, price, unit, inStock, image, quantity } = req.body;
 
     const product = new Product({
       name,
@@ -72,6 +80,7 @@ router.post('/', authMiddleware, isFarmer, async (req, res) => {
       description,
       price,
       unit,
+      quantity: quantity !== undefined ? quantity : 0,
       inStock: inStock !== undefined ? inStock : true,
       image,
       farmer: req.user._id,
