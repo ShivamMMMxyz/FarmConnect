@@ -18,6 +18,7 @@ app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/products', require('./routes/product.routes'));
 app.use('/api/tools', require('./routes/tool.routes'));
 app.use('/api/orders', require('./routes/order.routes'));
+app.use('/api/ml', require('./routes/ml.routes'));
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
@@ -33,7 +34,8 @@ app.get('/', (req, res) => {
       auth: '/api/auth',
       products: '/api/products',
       tools: '/api/tools',
-      orders: '/api/orders'
+      orders: '/api/orders',
+      ml: '/api/ml'
     }
   });
 });
